@@ -14,8 +14,26 @@ cd ivosights-rizki/docker
 ```sh
 docker compose up -d
 ```
-
-Setelah proses deploy selesai akses url berikut melalui browser. Jika muncul pesan **Bad Gateway** berarti dependency belum selesai diinstall, tunggu beberapa saat lalu refresh halaman beberapa kali sampai aplikasi bisa diakses
+**Install dependencies**<br />
+Setelah proses deploy selesai, sebelum dapat digunakan aplikasi akan menginstall dependencies secara otomatis. Untuk melihat proses install jalankan perintah berikut untuk menampilkan logs
 ```sh
-http://localhost:8080
+docker logs -f ivosights-rizki-php
 ```
+Jika logs menampilkan teks berikut aplikasi sudah dapat digunakan
+```sh
+NOTICE: fpm is running, pid 275
+NOTICE: ready to handle connections
+```
+Setelah proses install dependencies selesai akses url berikut melalui browser.li sampai aplikasi bisa diakses
+```sh
+http://localhost:9090
+```
+
+## Troubleshoot
+Jika proses deploy atau install dependencies gagal tambahkan atau edit file **/etc/docker/daemon.json**
+```sh
+{
+  "dns": ["8.8.8.8", "8.8.4.4"]
+}
+```
+Lalu restart service docker
